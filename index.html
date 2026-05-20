@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visa Check</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:25px;
+border-radius:20px;
+width:320px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+color:#1e3a8a;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+padding:15px;
+background:#ecfdf5;
+border-radius:10px;
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Visa Check Portal</h2>
+
+<input type="text" id="passport"
+placeholder="Passport Number">
+
+<input type="date" id="dob">
+
+<button onclick="checkVisa()">
+Check Visa Status
+</button>
+
+<div class="result" id="resultBox">
+
+✅ Visa Approved
+
+<br><br>
+
+Name: John Doe
+
+<br>
+
+Country: UAE
+
+<br>
+
+Visa Type: Work Visa
+
+</div>
+
+</div>
+
+<script>
+
+function checkVisa(){
+
+let passport =
+document.getElementById('passport').value;
+
+let dob =
+document.getElementById('dob').value;
+
+if(passport=="" || dob==""){
+
+alert("Please fill all fields");
+
+return;
+
+}
+
+document.getElementById('resultBox')
+.style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
