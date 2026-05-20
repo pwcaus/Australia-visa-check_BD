@@ -3,57 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visa Check</title>
+
+<title>Australia Visa Check Portal</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-font-family:Arial;
-background:#f4f7fb;
+background:
+linear-gradient(rgba(0,0,0,0.55),
+rgba(0,0,0,0.55)),
+url('https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1200');
+background-size:cover;
+background-position:center;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+padding:20px;
 }
 
 .container{
+width:100%;
+max-width:420px;
 background:white;
 padding:25px;
 border-radius:20px;
-width:320px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.logo{
+text-align:center;
+margin-bottom:15px;
+}
+
+.logo img{
+width:75px;
 }
 
 h2{
 text-align:center;
-color:#1e3a8a;
+color:#003399;
+margin-bottom:20px;
+font-size:28px;
 }
 
-input{
+input,select{
 width:100%;
-padding:12px;
+padding:14px;
 margin-top:12px;
-border:1px solid #ccc;
 border-radius:10px;
+border:1px solid #ccc;
+font-size:15px;
 }
 
 button{
 width:100%;
-padding:12px;
-margin-top:15px;
-background:#2563eb;
+padding:14px;
+margin-top:18px;
+background:#0052cc;
 color:white;
 border:none;
 border-radius:10px;
+font-size:17px;
 cursor:pointer;
 }
 
+button:hover{
+background:#003d99;
+}
+
 .result{
-margin-top:20px;
-padding:15px;
-background:#ecfdf5;
-border-radius:10px;
 display:none;
+margin-top:25px;
+background:#f8fafc;
+padding:20px;
+border-radius:15px;
+border:1px solid #ddd;
+}
+
+.photo{
+text-align:center;
+}
+
+.photo img{
+width:110px;
+height:110px;
+border-radius:12px;
+object-fit:cover;
+border:3px solid #0052cc;
+}
+
+.status-approved{
+color:green;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+margin-top:15px;
+}
+
+.status-rejected{
+color:red;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+margin-top:15px;
+}
+
+.info{
+margin-top:10px;
+font-size:15px;
+}
+
+.info b{
+color:#003399;
+}
+
+.download-btn{
+display:block;
+margin-top:20px;
+text-align:center;
+background:#009966;
+padding:13px;
+border-radius:10px;
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+.qr{
+text-align:center;
+margin-top:20px;
+}
+
+.qr img{
+width:120px;
+}
+
+.footer{
+margin-top:20px;
+text-align:center;
+font-size:12px;
+color:gray;
 }
 
 </style>
@@ -63,12 +160,31 @@ display:none;
 
 <div class="container">
 
-<h2>Visa Check Portal</h2>
+<div class="logo">
 
-<input type="text" id="passport"
-placeholder="Passport Number">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Coat_of_Arms_of_Australia.svg">
 
-<input type="date" id="dob">
+</div>
+
+<h2>Australia Visa Check</h2>
+
+<input type="text"
+id="passport"
+placeholder="Enter Passport Number">
+
+<select id="visaType">
+
+<option value="">Select Visa Type</option>
+
+<option>Tourist Visa</option>
+
+<option>Student Visa</option>
+
+<option>Work Permit Visa</option>
+
+<option>Temporary Skill Shortage Visa</option>
+
+</select>
 
 <button onclick="checkVisa()">
 Check Visa Status
@@ -76,19 +192,66 @@ Check Visa Status
 
 <div class="result" id="resultBox">
 
-✅ Visa Approved
+<div class="photo">
 
-<br><br>
+<img src="https://randomuser.me/api/portraits/men/45.jpg">
 
-Name: John Doe
+</div>
 
-<br>
+<div id="statusText"></div>
 
-Country: UAE
+<div class="info">
+<b>Applicant Name:</b> John Doe
+</div>
 
-<br>
+<div class="info">
+<b>Passport Number:</b> BA4589652
+</div>
 
-Visa Type: Work Visa
+<div class="info">
+<b>Country:</b> Australia
+</div>
+
+<div class="info">
+<b>Visa Type:</b> Temporary Skill Shortage Visa
+</div>
+
+<div class="info">
+<b>Application ID:</b> AUS45896325
+</div>
+
+<div class="info">
+<b>Issue Date:</b> 20 May 2026
+</div>
+
+<div class="info">
+<b>Expiry Date:</b> 20 May 2028
+</div>
+
+<div class="info">
+<b>Visa Center:</b> Australian Immigration Office
+</div>
+
+<a class="download-btn"
+href="#">
+
+Download Visa PDF
+
+</a>
+
+<div class="qr">
+
+<p><b>QR Verification</b></p>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=AustraliaVisaApproved">
+
+</div>
+
+</div>
+
+<div class="footer">
+
+© 2026 Australia Immigration Visa Portal
 
 </div>
 
@@ -99,12 +262,12 @@ Visa Type: Work Visa
 function checkVisa(){
 
 let passport =
-document.getElementById('passport').value;
+document.getElementById("passport").value;
 
-let dob =
-document.getElementById('dob').value;
+let visa =
+document.getElementById("visaType").value;
 
-if(passport=="" || dob==""){
+if(passport=="" || visa==""){
 
 alert("Please fill all fields");
 
@@ -112,8 +275,24 @@ return;
 
 }
 
-document.getElementById('resultBox')
+document.getElementById("resultBox")
 .style.display="block";
+
+let approved = Math.random() > 0.5;
+
+if(approved){
+
+document.getElementById("statusText")
+.innerHTML =
+'<div class=\"status-approved\">✅ AUSTRALIA VISA APPROVED</div>';
+
+}else{
+
+document.getElementById("statusText")
+.innerHTML =
+'<div class=\"status-rejected\">❌ AUSTRALIA VISA REJECTED</div>';
+
+}
 
 }
 
